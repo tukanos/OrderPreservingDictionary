@@ -1,10 +1,10 @@
 "
-A baseline for an order preserving dictionary (https://github.com/pharo-contributions/OrderPreservingDictionary)
+A baseline for an order preserving dictionary [https://github.com/pharo-contributions/OrderPreservingDictionary](https://github.com/pharo-contributions/OrderPreservingDictionary)
 "
 Class {
 	#name : #BaselineOfOrderPreservingDictionary,
 	#superclass : #BaselineOf,
-	#category : #BaselineOfOrderPreservingDictionary
+	#category : #'BaselineOfOrderPreservingDictionary-Base'
 }
 
 { #category : #baselines }
@@ -12,25 +12,31 @@ BaselineOfOrderPreservingDictionary >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
-		do: [ 
+		do: [
 			"Packages"
 			spec package: 'Collections-OrderPreservingDictionary';
-				  package: 'Collections-OrderPreservingDictionary-Tests' with: [ spec requires: #('Collections-OrderPreservingDictionary') ];
-				  package: 'Collections-OrderPreservingDictionary-GTExtensions' with: [ spec requires: #('Collections-OrderPreservingDictionary') ].
-				
-			"Groups"	
+				  package: 'Collections-OrderPreservingDictionary-Tests' with: [ spec requires: #('Collections-OrderPreservingDictionary') ].
+
+			"Groups"
 			spec
 				group: 'Core' with: #('Collections-OrderPreservingDictionary');
 				group: 'Tests' with: #('Collections-OrderPreservingDictionary-Tests');
-				group: 'Tools' with: #('Collections-OrderPreservingDictionary-GTExtensions');
+				group: 'Tools' with: #();
+				group: 'CI' with: #('Tests');
 				group: 'all' with: #('Core' 'Tools' 'Tests');
 				group: 'default' with: #('all') ].
 
+	self baselineGT: spec
+]
+
+{ #category : #'baselines - legacy' }
+BaselineOfOrderPreservingDictionary >> baselineGT: spec [
+
 	spec
-		for: #gemstone
-		do: [ 
-			spec package: 'Collections-OrderPreservingDictionary' with: [ spec includes: 'Collections-OrderPreservingDictionary-GemstoneCompatibility' ].
-			spec package: 'Collections-OrderPreservingDictionary-GemstoneCompatibility' with: [ spec requires: 'Collections-OrderPreservingDictionary' ]].
+		for: #gt
+		do: [
+			spec package: 'Collections-OrderPreservingDictionary-GTExtensions' with: [ spec requires: #('Collections-OrderPreservingDictionary') ].
+			spec group: 'Tools' with: #('Collections-OrderPreservingDictionary-GTExtensions') ]
 ]
 
 { #category : #accessing }
